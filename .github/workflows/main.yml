@@ -60,7 +60,7 @@ jobs:
         
          if [ $PR_EXISTS == 0 ]; then
           echo "Opening new PR"
-          gh pr create --title "$PR_LABEL" --body "Update build for \`backoffice\` / \`$QA_ENV\` environment https://hello.com/tr/backoffice/builds/$BUILD_NO"
+          gh pr create --title "$PR_LABEL" --body "Update build for \`backoffice\` / \`$QA_ENV\` environment/\nhttps://hello.com/tr/backoffice/builds/$BUILD_NO"
         else
           echo "Updating pre-existing PR"
         fi
