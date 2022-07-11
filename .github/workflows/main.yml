@@ -17,6 +17,10 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        ref: master
     - name: Edit build number & push change
       run: |
        BUILD_NO=${{ github.event.inputs.build_number }}
@@ -36,3 +40,24 @@ jobs:
         echo "PR_LABEL: ${PR_LABEL}"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
         echo "environment'\n'buildkite.com"
+        
+        git fetch
+        git checkout -b $BRANCH_NAME
+        
+        sed -i 's/\(image: haha\/frontend\/build:\).*$/\1'"$BUILD_NO"'/' test.yml
+        
+        git add .
+        git commit -m "Update build number to $BUILD_NO"
+
+        if [ $BRANCH_EXISTS == 0 ]; then
+          git push --set-upstream origin $BRANCH_NAME
+        else
+          git push
+        fi
+        
+         if [ $PR_EXISTS == 0 ]; then
+          echo "Opening new PR"
+          gh pr create --title "$PR_LABEL" --body "Update build for \`backoffice\` / \`$QA_ENV\` environment (https://buildkite.com/tr/backoffice/builds/$BUILD_NO)"
+        else
+          echo "Updating pre-existing PR"
+        fi
