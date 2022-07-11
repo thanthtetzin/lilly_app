@@ -39,6 +39,10 @@ jobs:
         PR_LABEL="[lilly-app/${QA_ENV}] Update ${PR_BUILD_LABEL}"
         PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
         BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
+        
+        PRs=gh pr list --search "title:$PR_LABEL"
+        echo "${PRs}"
+        echo "${PRs}[0]"
 
         echo "## VARIABLES"
         echo "PR_LABEL: ${PR_LABEL}"
@@ -57,8 +61,10 @@ jobs:
         git add .
         git commit -m "Update build number to $BUILD_NO"
 
-        git push --set-upstream origin $BRANCH_NAME
-
+        if [ $BRANCH_EXISTS == 0 ]; then
+          git push --set-upstream origin $BRANCH_NAME
+        else
+          git push
         fi
         
          if [ $PR_EXISTS == 0 ]; then
