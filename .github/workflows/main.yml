@@ -35,11 +35,14 @@ jobs:
         
         BRANCH_NAME="backoffice-${QA_ENV}-build-to-${BUILD_NO}"
         PR_LABEL="[backoffice/${QA_ENV}] Update ${PR_BUILD_LABEL}"
-    
-        echo "## VARIABLES INFO"
+        PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
+        BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
+
+        echo "## VARIABLES"
         echo "PR_LABEL: ${PR_LABEL}"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
-        echo "environment'\n'buildkite.com"
+        echo "PR_EXISTS: ${PR_EXISTS}"
+        echo "BRANCH_EXISTS: ${BRANCH_EXISTS}"
         
         git fetch
         git checkout -b $BRANCH_NAME
