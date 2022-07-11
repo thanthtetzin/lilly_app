@@ -75,3 +75,4 @@ jobs:
         fi
       
     - name: Edit build number & push change (${PR_URL})
+      run: echo "$PR_URL"
