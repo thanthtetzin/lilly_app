@@ -40,7 +40,7 @@ jobs:
         PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
         BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
         
-        PRs=$(gh pr list --search "title:$PR_LABEL")
+        PRs=$(gh pr list | search "title:$PR_LABEL" | wc -l)
         echo "${PRs}"
         echo "${PRs}[0]"
 
@@ -69,7 +69,8 @@ jobs:
         
          if [ $PR_EXISTS == 0 ]; then
           echo "Opening new PR"
-          gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO"
+          NEW_PR=gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO"
+          echo "$NEW_PR"
         else
           echo "Updating pre-existing PR"
         fi
