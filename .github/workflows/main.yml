@@ -40,9 +40,8 @@ jobs:
         PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
         BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
         
-        PRs=$(gh pr list | grep $PR_LABEL | wc -l)
-        echo "${PRs}"
-        echo "${PRs}[0]"
+        output=$(gh pr list --search "in:${PR_LABEL}")
+        echo "${output}"
 
         echo "## VARIABLES"
         echo "PR_LABEL: ${PR_LABEL}"
