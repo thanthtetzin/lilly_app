@@ -29,14 +29,14 @@ jobs:
        QA_ENV=${{ github.event.inputs.qa_env }}
         if [ $QA_ENV == staging ]; then
           PR_BUILD_LABEL="Staging release build to ${BUILD_NO}"
-          APP_PATH=backoffice
+          APP_PATH=lilly-app
         else
           PR_BUILD_LABEL="QA build to ${BUILD_NO}"
-          APP_PATH=backoffice/qa/$QA_ENV
+          APP_PATH=lilly-app/qa/$QA_ENV
         fi
         
-        BRANCH_NAME="backoffice-${QA_ENV}-build-to-${BUILD_NO}"
-        PR_LABEL="[backoffice/${QA_ENV}] Update ${PR_BUILD_LABEL}"
+        BRANCH_NAME="lilly-app-${QA_ENV}-build-to-${BUILD_NO}"
+        PR_LABEL="[lilly-app/${QA_ENV}] Update ${PR_BUILD_LABEL}"
         PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
         BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
 
