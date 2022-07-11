@@ -22,6 +22,8 @@ jobs:
       with:
         ref: master
     - name: Edit build number & push change
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
        BUILD_NO=${{ github.event.inputs.build_number }}
        QA_ENV=${{ github.event.inputs.qa_env }}
