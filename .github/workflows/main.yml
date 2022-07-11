@@ -74,5 +74,5 @@ jobs:
           echo "EXISTING_PR_: ${PR_URL}"
         fi
       
-    - name: Edit build number & push change (${PR_URL})
+    - name: PR_URL (${{PR_URL}})
       run: echo "$PR_URL"
