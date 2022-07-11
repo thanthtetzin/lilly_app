@@ -65,7 +65,7 @@ jobs:
         
          if [ $PR_EXISTS == 0 ]; then
           echo "Opening new PR"
-          gh pr create --web --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO")
+          gh pr create --web --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO"
         else
           echo "Updating pre-existing PR"
         fi
