@@ -32,6 +32,6 @@ jobs:
         BRANCH_NAME="backoffice-${QA_ENV}-build-to-${BUILD_NO}"
         PR_LABEL="[backoffice/${QA_ENV}] Update ${PR_BUILD_LABEL}"
     
-        echo "Variables Info"
+        echo "## VARIABLES INFO"
         echo "PR_LABEL: ${PR_LABEL}"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
