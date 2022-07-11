@@ -65,14 +65,8 @@ jobs:
         
          if [ $PR_EXISTS == 0 ]; then
           echo "Opening new PR"
-          PR_URL=$(gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO")
-          echo "NEW_PR: ${PR_URL}"
+          gh pr create --web --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO")
         else
           echo "Updating pre-existing PR"
-          EXISTING_PR_RECORD=$(gh pr list --search "in:${PR_LABEL}")
-          PR_URL = "https://github.com/thanthtetzin/lilly_app/pulls/${EXISTING_PR}[0]
-          echo "EXISTING_PR_: ${PR_URL}"
         fi
       
-    - name: PR_URL (${{PR_URL}})
-      run: echo "$PR_URL"
