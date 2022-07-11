@@ -39,9 +39,6 @@ jobs:
         PR_LABEL="[lilly-app/${QA_ENV}] Update ${PR_BUILD_LABEL}"
         PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
         BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
-        
-        output=$(gh pr list --search "in:${PR_LABEL}")
-        echo "${output}"
 
         echo "## VARIABLES"
         echo "PR_LABEL: ${PR_LABEL}"
@@ -68,8 +65,13 @@ jobs:
         
          if [ $PR_EXISTS == 0 ]; then
           echo "Opening new PR"
-          NEW_PR=$(gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO")
-          echo "NEW_PR: ${NEW_PR}"
+          PR_URL=$(gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment\nhttps://hello.com/$BUILD_NO")
+          echo "NEW_PR: ${PR_URL}"
         else
           echo "Updating pre-existing PR"
+          EXISTING_PR_RECORD=$(gh pr list --search "in:${PR_LABEL}")
+          PR_URL = "https://github.com/thanthtetzin/lilly_app/pulls/${EXISTING_PR}[0]
+          echo "EXISTING_PR_: ${PR_URL}"
         fi
+      
+    - name: Edit build number & push change (${PR_URL})
