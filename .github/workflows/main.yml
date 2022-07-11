@@ -35,4 +35,4 @@ jobs:
         echo "## VARIABLES INFO"
         echo "PR_LABEL: ${PR_LABEL}"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
-        echo "environment/nbuildkite.com"
+        echo "environment'\n'buildkite.com"
