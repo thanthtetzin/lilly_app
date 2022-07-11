@@ -46,6 +46,9 @@ jobs:
         
         sed -i 's/\(image: haha\/frontend\/build:\).*$/\1'"$BUILD_NO"'/' test.yml
         
+        git config user.email "thanthtetzin1990@gmail.com"
+        git config user.name "thanthtetzin"
+        
         git add .
         git commit -m "Update build number to $BUILD_NO"
 
