@@ -1,0 +1,41 @@
+name: Create QA-deployment Infra PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'Buildkite Build Number (e.g. 1234)'
+        required: true
+      qa_env:
+        type: choice
+        description: Environment
+        required: true
+        options: 
+        - staging
+        - qa-berlin
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Edit build number & push change
+      run: |
+       BUILD_NO=${{ github.event.inputs.build_number }}
+       QA_ENV=${{ github.event.inputs.qa_env }}
+        if [ $QA_ENV == staging ]; then
+          PR_BUILD_LABEL="Staging release build to ${BUILD_NO}"
+          APP_PATH=backoffice
+        else
+          PR_BUILD_LABEL="QA build to ${BUILD_NO}"
+          APP_PATH=backoffice/qa/$QA_ENV
+        fi
+        
+        BRANCH_NAME="backoffice-${QA_ENV}-build-to-${BUILD_NO}"
+        PR_LABEL="[backoffice/${QA_ENV}] Update ${PR_BUILD_LABEL}"
+        PR_EXISTS=$(gh pr list | grep $PR_LABEL | wc -l | xargs)
+        BRANCH_EXISTS=$(git ls-remote --heads origin $BRANCH_NAME | wc -l | xargs)
+        
+        echo "PR_LABEL: ${PR_LABEL}"
+        echo "BRANCH_NAME: ${BRANCH_NAME}"
+        echo "PR_EXISTS: ${PR_EXISTS}"
+        echo "BRANCH_EXISTS: ${BRANCH_EXISTS}"
+
