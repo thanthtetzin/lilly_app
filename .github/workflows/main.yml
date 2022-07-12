@@ -67,7 +67,6 @@ jobs:
           echo "Opening new PR"
           NEWLINE=$'\n'
           gh pr create --title "$PR_LABEL" --body "Update build for \`lillyapp\` / \`$QA_ENV\` environment${NEWLINE}https://hello.com/$BUILD_NO"
-          gh pr view --web
         else
           echo "Updating pre-existing PR"
         fi
